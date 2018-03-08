@@ -1,0 +1,96 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+
+
+input[type=text], input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+.container {
+    padding: 16px;
+}
+
+#LogInInputs{
+    margin: auto;
+    background-color: #eeeeee;
+    border-radius: 20px;
+    width: 50%;
+}
+
+.wrapper{
+    width: 60%;
+    background-color: #eeeeee;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+#mainNav {
+    color: white;
+    margin-bottom: 15px;
+    font-weight: 700;
+    font-family: 'Montserrat';
+}   
+
+.bg-secondary {
+    background-color: #2C3E50 !important;
+}
+
+span.userPass {
+    float: right;
+    padding-top: 16px;
+}
+
+#logo{
+    margin-right: 15px;
+    height: 60px;
+    width: 60px;
+    position: relative;
+    bottom: 5px;
+}
+
+#help-block{
+    color: red;
+}
+
+/* Change styles for small screens */
+@media screen and (max-width: 650px) {
+    span.psw {
+       display: block;
+       float: none;
+}
+#LogInInputs{
+    margin: auto;
+    background-color: #eeeeee;
+    border-radius: 20px;
+    width: 80%;
+}
+
+.wrapper{
+    width: 90%;
+    background-color: #eeeeee;
+    border-radius: 10px;
+    padding: 10px;
+}
+}
