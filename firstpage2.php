@@ -1,5 +1,11 @@
 <?php
+
+require 'connect.php';
+
+// Initialize the session
 session_start();
+
+
 
 // If session variable is not set it will redirect to login page
 if(!isset($_SESSION['userName']) || empty($_SESSION['userName'])){
@@ -7,16 +13,27 @@ if(!isset($_SESSION['userName']) || empty($_SESSION['userName'])){
   exit;
 }
 
-// Include config file
-require_once 'connect.php';
-
-// declare the information from this session
+// Get the username used for this session
 $userName = $_SESSION['userName'];
-$fullName = $_SESSION['fullName'];
-$emailAddress = $_SESSION['emailAddress'];
-$age = $_SESSION['age'];
-$homeAddress = $_SESSION['homeAddress'];
+$userId = $_SESSION['userId'];
 
+$sql  = "SELECT * FROM userinformation WHERE userName = '" . $userName . "'";
+
+$result = mysqli_query($conn, $sql);
+if (mysqli_num_rows($result) > 0) {
+    // output data of each row
+    while($row = mysqli_fetch_array($result)) {
+$fullName = $row['fullName'];
+$emailAddress = $row['emailAddress'];
+$age = $row['age'];
+$homeAddress = $row['homeAddress'];
+  }
+}
+
+$_SESSION['fullName'] = $fullName;
+$_SESSION['emailAddress'] = $emailAddress ;
+$_SESSION['age'] = $age;
+$_SESSION['homeAddress'] = $homeAddress;
 var_dump($_SESSION);
 
 ?>
@@ -33,21 +50,25 @@ var_dump($_SESSION);
 
     <link rel="icon" href="img/favicon.ico">
 
-    <title>My profile</title>
+    <title>Betfree</title>
+
+
 
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+
+    <!-- Custom styles for this template -->
+    <link href="firstpage.css" rel="stylesheet">
 
     <!-- Custom fonts for this template -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
 
-    <!-- Custom styles for this template -->
-    <link href="profilecss.css" rel="stylesheet">
 
   </head>
 
-  <body id="page-top">
+  <body id="page-top" class="bg-primary">
 
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg bg-secondary text-uppercase" id="mainNav">
@@ -64,57 +85,56 @@ var_dump($_SESSION);
             <li class="nav-item mx-0 mx-lg-1">
               <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="logout.php">Logout</a>
             </li>
-            </li>
           </ul>
         </div>
       </div>
     </nav>
 
-    
-<div class="container" id="userinfo">
-      <div class="row">
-      <div class="col-md-3  toppad col-md-offset-3 ">
+    <!-- Header -->
+    <header class="masthead bg-primary text-white text-center">
+      <div class="container">
+        <p>Hi, <b><?php echo htmlspecialchars($_SESSION['userName']); ?></b>.</p>
+        <img class="img-fluid mb-5 d-block mx-auto" src="img/logo.png" alt="logo" style="width:30%">
+        <h1 class="text-uppercase mb-0">BETFREE</h1>
+        <p>
+        	That one free betting site.
+        </p>
       </div>
-        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad" >
-   
-   
-          <div class="panel panel-info">
-            <div class="panel-heading">
-              <h3 class="panel-title">
-                <u><b>Name</b></u>: <?php echo $fullName; ?>
-              </h3>
-            </div>
-            <div class="panel-body">
-              <div class="row">
-                <div class="col-md-3 col-lg-3 " align="center"> <img alt="User Pic" src="img/logo2.png" style="width:80px;height:80px; border-radius: 50%;" class="img-circle img-responsive"> </div>
-                <div class=" col-md-9 col-lg-9 "> 
-                  <table class="table table-user-information">
-                    <tbody>
-                      <tr>
-                        <td>Age</td>
-                        <td><?php echo $age;?></td>
-                      </tr>
-                        <tr>
-                        <td>Home Address</td>
-                        <td><?php echo $homeAddress; ?></td>
-                      </tr>
-                      <tr>
-                        <td>Email</td>
-                        <td><a href="#"><?php echo $emailAddress; ?></a></td>  
-                      </tr>
-                    </tbody>
-                  </table>
-                  
-                  <a href="updateinfo.php" class=" btn btn-primary">Edit information</a>
-                
-                  <a href="delete.php" class=" btn btn-danger">Delete account</a>
-                </div>
-              </div>
-            </div>            
+    </header>
+
+    <!-- Betting section -->
+    <div class="container bg-primary text-center" id="betting">
+      <h3>Select a winner</h3>
+      <form action="">
+
+        <input type="radio" name="gender" value="team1"> Vegas Golden Knights
+      </br>
+        <input type="radio" name="gender" value="team1"> Draw
+      </br>
+        <input type="radio" name="gender" value="team2"> Ottawa Senators
+      </br>
+      </form>
+
+      <div class="form-group">
+          <input type="placeBet" class="btn btn-alert" value="Place bet">
+      </div>
+
+    </div>
+
+    <!-- About Section -->
+    <section class="bg-secondary text-white mb-0" id="about">
+      <div class="container">
+        <h2 class="text-center text-uppercase text-white">About</h2>
+        <div class="row">
+          <div class="col-lg-4 ml-auto">
+            <p class="lead">Here you will see the upcoming NHL games, as well as the most recent results for them.</p>
+          </div>
+          <div class="col-lg-4 mr-auto">
+            <p class="lead">/////////////////////</p>
           </div>
         </div>
       </div>
-    </div>
+    </section>
    
 
     <!-- Footer -->

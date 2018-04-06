@@ -1,6 +1,11 @@
 <?php
+
+require 'connect.php';
+
 // Initialize the session
 session_start();
+
+
 
 // If session variable is not set it will redirect to login page
 if(!isset($_SESSION['userName']) || empty($_SESSION['userName'])){
@@ -8,10 +13,28 @@ if(!isset($_SESSION['userName']) || empty($_SESSION['userName'])){
   exit;
 }
 
-
-
 // Get the username used for this session
 $userName = $_SESSION['userName'];
+$userId = $_SESSION['userId'];
+
+$sql  = "SELECT * FROM userinformation WHERE userName = '" . $userName . "'";
+
+$result = mysqli_query($conn, $sql);
+if (mysqli_num_rows($result) > 0) {
+    // output data of each row
+    while($row = mysqli_fetch_array($result)) {
+$fullName = $row['fullName'];
+$emailAddress = $row['emailAddress'];
+$age = $row['age'];
+$homeAddress = $row['homeAddress'];
+  }
+}
+
+$_SESSION['fullName'] = $fullName;
+$_SESSION['emailAddress'] = $emailAddress ;
+$_SESSION['age'] = $age;
+$_SESSION['homeAddress'] = $homeAddress;
+var_dump($_SESSION);
 
 ?>
 
@@ -24,6 +47,7 @@ $userName = $_SESSION['userName'];
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
     <link rel="icon" href="img/favicon.ico">
 
@@ -86,12 +110,17 @@ $userName = $_SESSION['userName'];
         <h2 class="text-center text-uppercase text-white">About</h2>
         <div class="row">
           <div class="col-lg-4 ml-auto">
-            <p class="lead">Freelancer is a free bootstrap theme created by Start Bootstrap. The download includes the complete source files including HTML, CSS, and JavaScript as well as optional LESS stylesheets for easy customization.</p>
+            <p class="lead">Here you will see the upcoming NHL games, as well as the most recent results for them.</p>
           </div>
           <div class="col-lg-4 mr-auto">
-            <p class="lead">Whether you're a student looking to showcase your work, a professional looking to attract clients, or a graphic artist looking to share your projects, this template is the perfect starting point!</p>
+            <p class="lead">/////////////////////</p>
           </div>
         </div>
+        <div id="weatherdata">
+      <table id="table">
+
+      </table>
+    </div>
       </div>
     </section>
    
@@ -128,6 +157,49 @@ $userName = $_SESSION['userName'];
         <i class="fa fa-chevron-up"></i>
       </a>
     </div>
+
+    <script>
+      
+      var username = "maxi95";
+      var password = "php123";
+ var query = $('#query').valueOf();
+      $.ajax({
+  type: "GET",
+  url: 'https://api.mysportsfeeds.com/v1.2/pull/nhl/2017-2018-regular/full_game_schedule.json?date=since-today',
+  dataType: 'json',
+  async: false,
+  headers: { "Authorization": "Basic " + btoa("maxi95" + ":" + "php123")},
+  data: 'query',
+  success: function (data){
+    renderHTML(data);
+  }
+});
+     
+
+      function renderHTML(data) {
+
+         var table = "<table>";
+
+        for(var x = 0; x <3; x++){
+
+          var homeTeam = data.fullgameschedule.gameentry[x].homeTeam.Name;
+          var awayTeam = data.fullgameschedule.gameentry[x].awayTeam.Name;
+
+          table += '<tr>';
+        table += '<td>' + homeTeam  + '</td>';
+        table += '<td>' + awayTeam + '</td>';
+        
+        table += '</tr>';
+
+        }
+        
+        document.getElementById("table").innerHTML = table;
+
+      }
+      
+
+
+    </script>
 
   </body>
 

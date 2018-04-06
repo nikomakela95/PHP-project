@@ -1,6 +1,6 @@
 <?php
 // Include config file
-require 'connect.php';
+require_once 'connect.php';
  
 // If session is already logged in, it will redirect to home page
 if(isset($_SESSION['userName'])){
@@ -81,6 +81,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             $param_userName = $userName;
             $param_password = password_hash($password, PASSWORD_DEFAULT); // Creates a password hash
             
+
             session_start();
             $_SESSION['userName'] = $userName;
             // Attempt to execute the prepared statement
@@ -123,7 +124,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
 
-
+    <!-- Plugin CSS -->
+    <link href="vendor/magnific-popup/magnific-popup.css" rel="stylesheet" type="text/css">
 
     <!-- Custom styles for this template -->
     <link href="login.css" rel="stylesheet">
@@ -145,17 +147,17 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             <div class="form-group <?php echo (!empty($userName_err)) ? 'has-error' : ''; ?>">
                 <label>Username</label>
                 <input type="text" name="userName" class="form-control" value="<?php echo $userName; ?>">
-                <span class="help-block" id="help-block"><?php echo $userName_err; ?></span>
+                <span class="help-block"><?php echo $userName_err; ?></span>
             </div>    
             <div class="form-group <?php echo (!empty($password_err)) ? 'has-error' : ''; ?>">
                 <label>Password</label>
                 <input type="password" name="password" class="form-control" value="<?php echo $password; ?>">
-                <span class="help-block" id="help-block"><?php echo $password_err; ?></span>
+                <span class="help-block"><?php echo $password_err; ?></span>
             </div>
             <div class="form-group <?php echo (!empty($confirm_password_err)) ? 'has-error' : ''; ?>">
                 <label>Confirm Password</label>
                 <input type="password" name="confirm_password" class="form-control" value="<?php echo $confirm_password; ?>">
-                <span class="help-block" id="help-block"><?php echo $confirm_password_err; ?></span>
+                <span class="help-block"><?php echo $confirm_password_err; ?></span>
             </div>
             <div class="form-group">
                 <input type="submit" class="btn btn-primary" value="Submit">

@@ -9,8 +9,9 @@ if(!isset($_SESSION['userName']) || empty($_SESSION['userName'])){
   exit;
 }
 
-// Get the username used for this session
+// Get the username and userid used for this session
 $userName = $_SESSION['userName'];
+$userId = $_SESSION['userId'];
 
 $age_length = strlen((string)$_POST["age"]);
 

@@ -2,12 +2,6 @@
 // Include config file
 require_once 'connect.php';
  
-// If session is already logged in, it will redirect to home page
-if(isset($_SESSION['userName'])){
-  header("location: firstpage.php");
-  exit;
-}
-
 
 // Define variables and initialize with empty values
 $userName = $userPass = "";
@@ -33,15 +27,18 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     // Validate credentials
     if(empty($userName_err) && empty($userPass_err)){
         // Prepare a select statement
-        $sql = "SELECT * FROM users LEFT JOIN userinformation WHERE user.userName = userinformation.userName";
+        $sql = "SELECT * FROM users WHERE userName = ?";
         
         if($stmt = mysqli_prepare($conn, $sql)){
-            // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "s", $param_userName);
-            
+
             // Set parameters
             $param_userName = $userName;
             $param_userId = $userId;
+
+            // Bind variables to the prepared statement as parameters
+            mysqli_stmt_bind_param($stmt, "s", $param_userName);
+            
+
             
             // Attempt to execute the prepared statement
             if(mysqli_stmt_execute($stmt)){
@@ -59,10 +56,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             session_start();
                             $_SESSION['userName'] = $userName;
                             $_SESSION['userId'] = $userId;
-                            $_SESSION['fullName'] = $fullName;
-                            $_SESSION['emailAddress'] = $emailAddress;
-                            $_SESSION['age'] = $age;
-                            $_SESSION['homeAddress'] = $homeAddress;
 
                             header("location: firstpage.php");
                         } else{
