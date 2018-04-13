@@ -34,7 +34,7 @@ $_SESSION['fullName'] = $fullName;
 $_SESSION['emailAddress'] = $emailAddress ;
 $_SESSION['age'] = $age;
 $_SESSION['homeAddress'] = $homeAddress;
-var_dump($_SESSION);
+
 
 ?>
 
@@ -66,10 +66,39 @@ var_dump($_SESSION);
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
 
+<style>
+select {
+  margin: 50px;
+  border: 1px solid #111;
+  background: transparent;
+  width: 150px;
+  padding: 5px 35px 5px 5px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  height: 34px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: #eee;
+}
+
+/* CAUTION: IE hackery ahead */
+select::-ms-expand { 
+    display: none; /* remove default arrow on ie10 and ie11 */
+}
+
+/* target Internet Explorer 9 to undo the custom arrow */
+@media screen and (min-width:0\0) {
+    select {
+        background:none\9;
+        padding: 5px\9;
+    } 
+}
+</style>
 
   </head>
 
-  <body id="page-top">
+  <body id="page-top" class="bg-primary">
 
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg bg-secondary text-uppercase" id="mainNav">
@@ -103,7 +132,50 @@ var_dump($_SESSION);
       </div>
     </header>
 
-    
+<!-- Betting section -->
+<div class="container bg-primary text-center" id="betting">
+  <h1>Matches</h1>
+
+<div class="row">
+<div class="col-sm-4">
+	<h4>Match 1:<br> <span id="team1">Team1</span> - <span id="team2">Team2</span></h4>
+
+  <select>
+    <option>Winner: </option>
+    <option id="draw">Draw</option>
+    <option>Winner: Team2</option>
+  </select>
+</div>
+
+
+<div class="col-sm-4">
+	<h4>Match 2:<br><span id="team3">Team1</span> - <span id="team4">Team2</span></h4>
+
+  <select>
+    <option>Winner:</option>
+    <option>Draw</option>
+    <option>Winner: Team2</option>
+  </select>
+</div>
+
+
+<div class="col-sm-4">
+  <h4>Match 3:<br><span id="team5">Team1</span> - <span id="team6">Team2</span></h4>
+
+  <select>
+    <option>Winner: Team1</option>
+    <option>Draw</option>
+    <option>Winner: Team2</option>
+  </select>
+</div>
+</div>
+
+      <div class="form-group">
+          <input type="placeBet" class="btn btn-alert" value="Place bet">
+      </div>
+
+</div>
+
     <!-- About Section -->
     <section class="bg-secondary text-white mb-0" id="about">
       <div class="container">
@@ -116,11 +188,6 @@ var_dump($_SESSION);
             <p class="lead">/////////////////////</p>
           </div>
         </div>
-        <div id="weatherdata">
-      <table id="table">
-
-      </table>
-    </div>
       </div>
     </section>
    
@@ -165,7 +232,7 @@ var_dump($_SESSION);
  var query = $('#query').valueOf();
       $.ajax({
   type: "GET",
-  url: 'https://api.mysportsfeeds.com/v1.2/pull/nhl/2017-2018-regular/full_game_schedule.json?date=since-today',
+  url: 'https://api.mysportsfeeds.com/v1.2/pull/nhl/2018-playoff/full_game_schedule.json?date=since-today',
   dataType: 'json',
   async: false,
   headers: { "Authorization": "Basic " + btoa("maxi95" + ":" + "php123")},
@@ -178,22 +245,37 @@ var_dump($_SESSION);
 
       function renderHTML(data) {
 
-         var table = "<table>";
 
-        for(var x = 0; x <3; x++){
+         var teamOne = "";
+         var teamTwo = "";
+         var teamThree = "";
+         var teamFour = "";
+         var teamFive = "";
+         var teamSix = "";
 
-          var homeTeam = data.fullgameschedule.gameentry[x].homeTeam.Name;
-          var awayTeam = data.fullgameschedule.gameentry[x].awayTeam.Name;
+        for(var x = 0; x <1; x++){
 
-          table += '<tr>';
-        table += '<td>' + homeTeam  + '</td>';
-        table += '<td>' + awayTeam + '</td>';
+        //var homeTeam = data.fullgameschedule.gameentry[x].homeTeam.Name;
+        //  var awayTeam = data.fullgameschedule.gameentry[x].awayTeam.Name;
+
+        teamOne += data.fullgameschedule.gameentry[0].homeTeam.Name ;
+        teamTwo += data.fullgameschedule.gameentry[0].awayTeam.Name ;
+        teamThree += data.fullgameschedule.gameentry[1].homeTeam.Name ;
+        teamFour += data.fullgameschedule.gameentry[1].awayTeam.Name ;
+        teamFive += data.fullgameschedule.gameentry[2].homeTeam.Name ;
+        teamSix += data.fullgameschedule.gameentry[2].awayTeam.Name ;
         
-        table += '</tr>';
+
 
         }
         
-        document.getElementById("table").innerHTML = table;
+        document.getElementById("team1").innerHTML = teamOne;
+        document.getElementById("team2").innerHTML = teamTwo;
+        document.getElementById("team3").innerHTML = teamThree;
+        document.getElementById("team4").innerHTML = teamFour;
+        document.getElementById("team5").innerHTML = teamFive;
+        document.getElementById("team6").innerHTML = teamSix;
+
 
       }
       

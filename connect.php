@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-$servername = "127.0.0.1:49652";
+$servername = "127.0.0.1:49657";
 $dbName = "azure";
 $dbPass = "6#vWHD_$";
 $dbname = "localdb";
