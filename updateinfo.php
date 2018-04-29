@@ -22,7 +22,7 @@ $fullName_err = $emailAddress_err = $age_err = $homeAddress_err = $age_length_er
 // Processing form data when form is submitted
 if($_SERVER["REQUEST_METHOD"] == "POST"){
  
-    // Validate fullName, emailAddress
+    // Validate fullName input
     if(empty(trim($_POST["fullName"]))){
         $fullName_err = "Please enter your full name.";
     } else{
@@ -32,8 +32,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $fullName_err = "Only letters and white space allowed."; 
     }
 }
-
-        if(empty(trim($_POST["emailAddress"]))){
+    // Validate email address input
+    if(empty(trim($_POST["emailAddress"]))){
         $emailAddress_err = "Please enter your email address.";
     } else{
         $emailAddress = trim($_POST["emailAddress"]);
@@ -42,17 +42,18 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $emailAddress_err = "Invalid email format"; 
     }
 }
-
+    // Validate age input
     if(empty(trim($_POST["age"]))){
         $age_err = "Please enter your age (2 digits long).";
+    // Check if the age input is long enough and show an error if it is not
     }else if($age_length !== 2) {
         $age_length_err = "Age must be 2 digits long.";
     }
     else if($age_length == 2){
         $age = trim($_POST["age"]);
     }
-
-        if(empty(trim($_POST["homeAddress"]))){
+    // Validate home address input
+    if(empty(trim($_POST["homeAddress"]))){
         $homeAddress_err = "Please enter your home address.";
     } else{
         $homeAddress = trim($_POST["homeAddress"]);
@@ -69,12 +70,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $sql = "UPDATE userinformation SET fullName = '$fullName', emailAddress = '$emailAddress', age = '$age', homeAddress = '$homeAddress' WHERE userName = '$userName'";
     if(mysqli_query($conn, $sql)){
         $informationSuccess = "Your information has been updated!";
+        // Start the session and declare session data
         session_start();
         $_SESSION['fullName'] = $fullName;
         $_SESSION['emailAddress'] = $emailAddress;
         $_SESSION['age'] = $age;
         $_SESSION['homeAddress'] = $homeAddress;
     } else{
+        // Show an error message if there was a server error
         $informationSuccess = "Error while updating information." ;
     }
 }
@@ -98,14 +101,14 @@ mysqli_close($conn);
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Custom fonts for this template -->
+    <!-- Custom fonts for this page -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
 
     <!-- Plugin CSS -->
     <link href="vendor/magnific-popup/magnific-popup.css" rel="stylesheet" type="text/css">
 
-    <!-- Custom styles for this template -->
+    <!-- Custom styles for this page -->
     <link href="insertInformation.css" rel="stylesheet">
 </head>
 <body>

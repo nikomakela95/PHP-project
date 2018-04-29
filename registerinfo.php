@@ -67,6 +67,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         // attempt insert query execution
         $sql = "INSERT INTO userinformation (userName, fullName, emailAddress, age, homeAddress) VALUES ('$userName', '$fullName', '$emailAddress', '$age', '$homeAddress')";
     if(mysqli_query($conn, $sql)){
+        // Start the session and declare session data
         session_start();
         $_SESSION['fullName'] = $fullName;
         $_SESSION['emailAddress'] = $emailAddress;
@@ -74,7 +75,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $_SESSION['homeAddress'] = $homeAddress;
         header("location: login.php");
     } else{
-        echo "Error" ;
+        // Display an error message if there is a server error
+        echo '<script language="javascript">';
+        echo 'alert("Something went wrong. Please try again later.")';
+        echo '</script>';
     }
 }
 // Close connection
@@ -98,14 +102,14 @@ mysqli_close($conn);
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Custom fonts for this template -->
+    <!-- Custom fonts for this page -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
 
     <!-- Plugin CSS -->
     <link href="vendor/magnific-popup/magnific-popup.css" rel="stylesheet" type="text/css">
 
-    <!-- Custom styles for this template -->
+    <!-- Custom styles for this page -->
     <link href="insertInformation.css" rel="stylesheet">
 </head>
 <body>

@@ -1,5 +1,6 @@
 body {
   font-family: 'Lato';
+  overflow-x: hidden;
 }
 
 h1,
@@ -131,7 +132,7 @@ section h2 {
 }
 
 header.masthead {
-  padding-top: calc(6rem + 72px);
+  padding-top: 3rem;
   padding-bottom: 6rem;
 }
 
@@ -147,7 +148,7 @@ header.masthead h2 {
 
 @media (max-width: 992px) {
   header.masthead {
-    padding-top: calc(6rem + 102px);
+    padding-top: 3rem;
     padding-bottom: 6rem;
   }
   header.masthead h1 {
@@ -186,6 +187,15 @@ a:focus, a:hover, a:active {
 
 .btn {
   border-width: 2px;
+    border: none;
+    color: white;
+    padding: 25px 58px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
 }
 
 .bg-primary {
@@ -222,4 +232,46 @@ a:focus, a:hover, a:active {
 .btn-secondary:hover, .btn-secondary:focus, .btn-secondary:active {
   background-color: #1a252f;
   border-color: #1a252f;
+}
+
+dl{
+  display: inline-block;
+  float:left;
+  border-style: solid;
+  border-radius: 10px;
+  margin-right: 2px;
+}
+
+
+​dt, dd {
+  display: inline-block;
+
+}
+
+dt {
+  font-size: 2em;
+  padding-right: 10px;
+  padding-left:  10px;
+}
+
+dd {
+  min-width: 5%;
+  cursor: pointer;
+  background-color: #151515;
+  color: white;
+  padding-right: 5px;
+  padding-left: 5px;
+  border-radius: 3px;
+}
+
+#weatherdata {
+  margin:auto;
+  text-align: center;
+  padding-top: 10px;
+}
+dd a:active{
+  background-color: red;
+}
+.select{
+  background-color: red;
 }

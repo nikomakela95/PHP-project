@@ -57,7 +57,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             $_SESSION['userName'] = $userName;
                             $_SESSION['userId'] = $userId;
 
-                            header("location: firstpage.php");
+                            header("location: index.php");
                         } else{
                             // Display an error message if password is not valid
                             $userPass_err = 'The password you entered was not valid.';
@@ -68,7 +68,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     $userName_err = 'No account found with that username.';
                 }
             } else{
-                echo "Oops! Something went wrong. Please try again later.";
+                // Display an error message if there is a server error
+                echo '<script language="javascript">';
+                echo 'alert("Something went wrong. Please try again later.")';
+                echo '</script>';
             }
         }
         
@@ -97,14 +100,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Custom fonts for this template -->
+    <!-- Custom fonts for this page -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
 
     <!-- Plugin CSS -->
     <link href="vendor/magnific-popup/magnific-popup.css" rel="stylesheet" type="text/css">
 
-    <!-- Custom styles for this template -->
+    <!-- Custom styles for this page -->
     <link href="login.css" rel="stylesheet">
 </head>
 

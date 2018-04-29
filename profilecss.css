@@ -200,11 +200,17 @@ header.masthead h2 {
   padding-bottom: 5rem;
   background-color: #2C3E50;
   color: #fff;
+  position: fixed;
+  bottom: 7%;
+  width: 100%;
 }
 
 
 .copyright {
   background-color: #1a252f;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
 }
 
 a {

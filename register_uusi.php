@@ -4,7 +4,7 @@ require_once 'connect.php';
  
 // If session is already logged in, it will redirect to home page
 if(isset($_SESSION['userName'])){
-  header("location: firstpage.php");
+  header("location: index.php");
   exit;
 }
 
@@ -31,16 +31,19 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             
             // Attempt to execute the prepared statement
             if(mysqli_stmt_execute($stmt)){
-                /* store result */
+                // store result
                 mysqli_stmt_store_result($stmt);
-                
+                // check if the username is already taken
                 if(mysqli_stmt_num_rows($stmt) == 1){
                     $userName_err = "This username is already taken.";
                 } else{
                     $userName = trim($_POST["userName"]);
                 }
             } else{
-                echo "Oops! Something went wrong. Please try again later.";
+                // display an error message if there is a server error
+                echo '<script language="javascript">';
+                echo 'alert("Something went wrong. Please try again later.")';
+                echo '</script>';
             }
         }
          
@@ -50,8 +53,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     
     // Validate password
     if(empty(trim($_POST['password']))){
-        $password_err = "Please enter a password.";     
-    } elseif(strlen(trim($_POST['password'])) < 2){
+        $password_err = "Please enter a password.";
+    // Check if the password is long enough and show an error if it is not
+    } else if(strlen(trim($_POST['password'])) < 6){
         $password_err = "Password must have atleast 6 characters.";
     } else{
         $password = trim($_POST['password']);
@@ -89,7 +93,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 // Redirect to information page
                 header("location: registerinfo.php");
             } else{
-                echo "Something went wrong. Please try again later.";
+                // Display an error message if there is a server error
+                echo '<script language="javascript">';
+                echo 'alert("Something went wrong. Please try again later.")';
+                echo '</script>';
             }
         }
          
@@ -120,14 +127,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Custom fonts for this template -->
+    <!-- Custom fonts for this page -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
 
     <!-- Plugin CSS -->
     <link href="vendor/magnific-popup/magnific-popup.css" rel="stylesheet" type="text/css">
 
-    <!-- Custom styles for this template -->
+    <!-- Custom styles for this page -->
     <link href="login.css" rel="stylesheet">
 </head>
 
