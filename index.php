@@ -137,19 +137,20 @@ select::-ms-expand {
 
 <!-- Betting section -->
 <div class="container bg-primary text-center" id="betting">
-  <h1>Matches</h1>      
+  <h1>Matches</h1>   
+     
 
 <div class="row">
-  <div id="weatherdata">
+  <div id="gameList">
 
   </div>
 </div>
 <div class="form-group" id="placebet">
-  <button class="btn btn-secondary">Place bet</button>
+  <button onclick="placeBet()" class="btn btn-secondary">Place bet</button>
 </div>
 
-
 </div>
+
 
     <!-- About Section -->
     <section class="bg-secondary text-white mb-0" id="about">
@@ -204,8 +205,7 @@ select::-ms-expand {
     <script>
 
       
-      var username = "maxi95";
-      var password = "php123";
+     
  var query = $('#query').valueOf();
       $.ajax({
   type: "GET",
@@ -219,15 +219,12 @@ select::-ms-expand {
 
   }
 });
-      //for(var i = 0; i < 3; i++){
-
+      
 
       var urlPart1 = "https://api.mysportsfeeds.com/v1.2/pull/nhl/2018-playoff/scoreboard.json?fordate=";
       var d = new Date();
-      var datestring = d.getFullYear() + "" + "0" +(d.getMonth()+1)  + "" + (d.getDate() -3);
+      var datestring = d.getFullYear() + "" + "0" +(d.getMonth()+1)  + "" + (d.getDate() -1);
         
-
-
       var query = $('#query').valueOf();
       $.ajax({
   type: "GET",
@@ -239,12 +236,9 @@ select::-ms-expand {
   success: function (data){
     console.log(urlPart1 + datestring);
     renderHTML2(data);
-
-   // urlDate++
-    
   }
 });
-    //}
+    
      
 
       function renderHTML(data) {
@@ -254,137 +248,86 @@ select::-ms-expand {
           var homeTeam = data.fullgameschedule.gameentry[x].homeTeam.Name;
           var awayTeam = data.fullgameschedule.gameentry[x].awayTeam.Name;
 
-          var list = "<dl>";
+          var list = '<dl id=\'dl' + x + '\'>';
           list += '<dt>' + homeTeam + " - " + awayTeam + '</dt>';
           list += '<dd>' + homeTeam + '<dd>';
           list += '<dd>' + " Draw " + '<dd>';
           list += '<dd>' + awayTeam + '<dd>';
-          // list += '<dl>'
-          var random = document.getElementById("weatherdata")
-          random.innerHTML += list;
+          
+          var gameList = document.getElementById("gameList")
+          gameList.innerHTML += list;
         }
-
       }
 
 
+        $(document).ready(function() {
 
-       document.getElementById("weatherdata").addEventListener("click",function(e) {
-        // e.target is our targetted element.
-                    // try doing console.log(e.target.nodeName), it will result LI
-        if(e.target && e.target.nodeName == "DD") {
-            console.log(e.target.id + " was clicked");
-            e.target.className = 'select';
-        }
+    $("#dl0 dd").click(function() {
+        $("#dl0 dd").removeClass('checked');
+        $(this).addClass('checked');
     });
 
-        /*
-         for(var x = 0; x <3; x++){
+    $("#dl1 dd").click(function() {
+        $("#dl1 dd").removeClass('checked');
+        $(this).addClass('checked');
+    });
 
-          
-          
-          var homeTeam = data.fullgameschedule.gameentry[x].homeTeam.Name;
-          var awayTeam = data.fullgameschedule.gameentry[x].awayTeam.Name;
+    $("#dl2 dd").click(function() {
+        $("#dl2 dd").removeClass('checked');
+        $(this).addClass('checked');
+    });
+  
+  });
 
-        var div = document.createElement('div');
-        div.className = 'col-sm-4';  
-        document.getElementsByClassName('row3')[0].appendChild(div);
-        var element = document.createElement('dl');
-        var element2 = document.createElement('dt');
-        element.innerHTML = homeTeam + " - " + awayTeam;
-        element2.innerHTML = homeTeam + " Draw " + awayTeam;
-          
-          document.getElementById("list").appendChild(element);
-          document.getElementById("list").appendChild(element2);
-        
-      }
-    }
-    */
-/*
+     function renderHTML2(data) {
 
-         var teamOne = "";
-         var teamTwo = "";
-         var teamThree = "";
-         var teamFour = "";
-         var teamFive = "";
-         var teamSix = "";
-
-        for(var x = 0; x <1; x++){
-
-        //var homeTeam = data.fullgameschedule.gameentry[x].homeTeam.Name;
-        //  var awayTeam = data.fullgameschedule.gameentry[x].awayTeam.Name;
-
-        teamOne += data.fullgameschedule.gameentry[0].homeTeam.Name ;
-        teamTwo += data.fullgameschedule.gameentry[0].awayTeam.Name ;
-        teamThree += data.fullgameschedule.gameentry[1].homeTeam.Name ;
-        teamFour += data.fullgameschedule.gameentry[1].awayTeam.Name ;
-        teamFive += data.fullgameschedule.gameentry[2].homeTeam.Name ;
-        teamSix += data.fullgameschedule.gameentry[2].awayTeam.Name ;
-        
-
-
-        }
-        
-        document.getElementsByClassName("team1")[0].innerHTML = teamOne;
-        document.getElementsByClassName("team2").innerHTML = teamTwo;
-        document.getElementsByClassName("team3").innerHTML = teamThree;
-        document.getElementsByClassName("team4").innerHTML = teamFour;
-        document.getElementsByClassName("team5").innerHTML = teamFive;
-        document.getElementsByClassName("team6").innerHTML = teamSix;
-*/
-      /*
-      var table = "<table>";
-      
-
-        for(var x = 0; x <3; x++){
-          table += '<div class="col-sm-4">';
-          var homeTeam = data.fullgameschedule.gameentry[x].homeTeam.Name;
-          var awayTeam = data.fullgameschedule.gameentry[x].awayTeam.Name;
-          //table += '<tr class="koko">';
-          table += '<tr class="float1">';
-          table += '<th>' + homeTeam + " - " + awayTeam + '</th>';
-            table += '</tr>';
-
-        
-        table += '<td>' + homeTeam + '</td>';
-        table += '<td>' + "Draw" + '</td>';
-        table += '<td>' + awayTeam + '</td>';
-        table += '</tr>';
-
-
-       // table += '</tr>';
-
-        }
-        
-        document.getElementById("table").innerHTML = table;
-      }
-*/
-
-      function renderHTML2(data) {
+      var isGamesPlayed = data.scoreboard.gameScore[0].isCompleted;
+      var gameDate = data.scoreboard.gameScore[0].game.date;
+      if (isGamesPlayed == "true") {
 
       
       var table = "<table>";
-      var games = data.scoreboard.gameScore.length;
 
-        for(var x = 0; x <games; x++){
+        var games = data.scoreboard.gameScore.length;
+        console.log(games);
+        for(var x = 0; x < games; x++){
 
-          var homeTeam = '<b>' + data.scoreboard.gameScore[x].homeScore + '</b>' + " " + data.scoreboard.gameScore[x].game.homeTeam.Name + " <b>VS</b> ";
-          var awayTeam = data.scoreboard.gameScore[x].game.awayTeam.Name + " " + '<b>' + data.scoreboard.gameScore[x].awayScore + '</b>' + " ";
-          
+           var homeTeam =   data.scoreboard.gameScore[x].game.homeTeam.Name + ": " + '<b>' + data.scoreboard.gameScore[x].homeScore + '</b>';
+          var awayTeam = data.scoreboard.gameScore[x].game.awayTeam.Name + ": " + '<b>' + data.scoreboard.gameScore[x].awayScore + '</b>' + " ";
+
         table += '<td>' + homeTeam  + '</td>';
+        table += '<td>' + " <b>VS</b> "  + '</td>';
         table += '<td>' + awayTeam + '</td>';
-        
-        table += '</tr>';
-        table += "</table>";
+        table += '</tr>';       
        }
         
         document.getElementById("table2").innerHTML = table;
+      } else {
+        document.getElementById("table2").innerHTML = "There are no scores for the date: " + gameDate;
       }
+    }
       
-      $(document).ready(function(){
-    $("button").click(function(){
-        alert("Your bet has been placed!");
-    });
-    });
+      function placeBet(){
+        //Find how many games there are
+        var games = document.getElementById("gameList");
+        var gamesHere = games.getElementsByTagName("DT").length;
+        console.log(gamesHere);
+
+
+        var choises = $('#gameList .checked').length
+        console.log(choises);
+        if (choises < gamesHere) {
+          alert("You have to place bet on every game!");
+        } else {
+          alert("Your bet has been placed!");
+
+          for (var x = 0; x < gamesHere; x++){
+            var active = document.querySelector(".checked");
+            active.classList.remove("checked");
+ 
+        }
+     }
+   }
 
     </script>
 

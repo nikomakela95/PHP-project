@@ -264,7 +264,7 @@ dd {
   border-radius: 3px;
 }
 
-#weatherdata {
+#gameList {
   margin:auto;
   text-align: center;
   padding-top: 10px;
@@ -274,4 +274,13 @@ dd a:active{
 }
 .select{
   background-color: red;
+}
+
+.checked {    
+    background: red;
+    color: #fff;  
+}
+td {
+  padding:5px;
+  text-align: right;
 }
