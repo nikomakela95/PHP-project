@@ -18,7 +18,14 @@ How to use
 The url address for this page is https://1601534.azurewebsites.net/
 
 First off, enter the site and click the "Sign up now" button if you don't already have an account.
+
+![alt text](https://github.com/nikomakela95/PHP-project/blob/master/BetfreeLogin.png)
+
+![alt text](https://github.com/nikomakela95/PHP-project/blob/master/BetfreeRegisterInfo.png)
+
 After filling the information and creating the account, you will have the access to betfree's web page.
+
+
 
 
 ---
@@ -30,6 +37,10 @@ On the web page, you can select the outcome of the next NHL games and place the 
 
 You can also see the results for the latest NHL games below the betting section.
 
+![alt text](https://github.com/nikomakela95/PHP-project/blob/master/BetfreeBettingSection.png)
+
 On the "profile" page, you can view your personal information, edit that information and delete your profile.
+
+![alt text](https://github.com/nikomakela95/PHP-project/blob/master/BetfreeProfilePage.png)
 
 ---
